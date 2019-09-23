@@ -26,3 +26,4 @@ These instructions allow to download, install, configure and run Patatrack for b
   * Copy the configuration `config/sourceFromPixelRaw_cff.py` locally
   * Edit the options in `benchmark` to suit your needs
   * Run the benchmark by doing `./benchmark profile.sh`
+  * If you get an error saying "Valid site-local-config not found at <some_path>/SITECONF/local/JobConfig/site-local-config.xml", create such directory and copy in it the site-local-config.xml file from config/
