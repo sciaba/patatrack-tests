@@ -20,4 +20,5 @@ These instructions allow to download, install, configure and run Patatrack for b
   * Run `git clone https://github.com/cms-patatrack/patatrack-scripts`
   * Patch `worflow.sh` with the patch file in scripts/ by doing
     * `patch -b workflow.sh workflow.patch`
-    
+  * Patch `profile.py` with the patch file in config/ by doing
+    * `patch -b profile.py profile.patch`
