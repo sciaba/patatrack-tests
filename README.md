@@ -23,4 +23,6 @@ These instructions allow to download, install, configure and run Patatrack for b
     * Generate the workflow by running `./workflow.sh`
   * Patch `profile.py` with the patch file in config/ by doing
     * `patch -b profile.py profile.patch`
+  * Copy the configuration `config/sourceFromPixelRaw_cff.py` locally
   * Edit the options in `benchmark` to suit your needs
+  * Run the benchmark by doing `./benchmark profile.sh`
