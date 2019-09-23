@@ -1,0 +1,21 @@
+--- workflow.sh	2019-09-23 09:56:02.387235354 +0200
++++ workflow_new.sh	2019-09-23 09:51:37.140309036 +0200
+@@ -70,7 +70,7 @@
+     --conditions 102X_dataRun2_HLT_v2 \
+     -s RAW2DIGI:RawToDigi_pixelOnly,RECO:reconstruction_pixelTrackingOnly,DQM:@pixelTrackingOnlyDQM \
+     --procModifiers gpu \
+-    --customise RecoPixelVertexing/Configuration/customizePixelTracksForProfiling.customizePixelTracksForProfilingDisableTransfer \
++    --customise RecoPixelVertexing/Configuration/customizePixelTracksForProfiling.customizePixelTracksForProfilingGPUOnly \
+     -n 4200 \
+     --nThreads 8 \
+     --runUnscheduled \
+@@ -87,9 +87,6 @@
+ del process.source
+ process.load('sourceFromPixelRaw_cff')
+ 
+-# do not run the Riemann fit
+-process.pixelTracksHitQuadruplets.doRiemannFit = False
+-
+ # report CUDAService messages
+ process.MessageLogger.categories.append("CUDAService")
+ 
