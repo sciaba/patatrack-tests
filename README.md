@@ -15,3 +15,9 @@ These instructions allow to download, install, configure and run Patatrack for b
   * Edit the value of dataset_prefix to match the value of OUTPUT_DIR.
   * Edit the value of fed_prefix to set the desired destination for the FED (the size of the output will be approximately 5 GB).
   * Run `cmsRun prepare_data.py` (it should take around 10 hours for the whole dataset)
+## Running Patatrack
+* Get the Patatrack benchmarking suite
+  * Run `git clone https://github.com/cms-patatrack/patatrack-scripts`
+  * Patch `worflow.sh` with the patch file in scripts/ by doing
+    * `patch -b workflow.sh workflow.patch`
+    
