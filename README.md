@@ -14,4 +14,4 @@ These instructions allow to download, install, configure and run Patatrack for b
 * Use cmsRun with the configuration config/prepare_data.py to extract the relevant FED from the input data.
   * Edit the value of dataset_prefix to match the value of OUTPUT_DIR.
   * Edit the value of fed_prefix to set the desired destination for the FED (the size of the output will be approximately 5 GB).
-  * Run `cmsRun prepare_data.py`
+  * Run `cmsRun prepare_data.py` (it should take around 10 hours for the whole dataset)
