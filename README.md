@@ -1,5 +1,5 @@
 # patatrack-tests
-These instructions allow to download, install, configure and run Patatrack for benchmarking purposes.
+These instructions allow to download, install, configure and run Patatrack (https://github.com/cms-patatrack) for benchmarking purposes. These are UNOFFICIAL and the author is NOT a Patatrack developer, so they are liable to stop working if changes in Patatrack happen and are not properly taken into account here.
 ## Installation and setup
 * Use the script scripts/install.sh to install CMSSW and Patatrack on a local directory.
   * Edit the value of VO_CMS_SW_DIR to point to a directory with at least 40 GB of free space.
@@ -25,6 +25,8 @@ These instructions allow to download, install, configure and run Patatrack for b
   * Patch `profile.py` with the patch file in config/ by doing
     * `patch -b profile.py profile.patch`
   * Copy the configuration `config/sourceFromPixelRaw_cff.py` locally
-  * Edit the options in `benchmark` to suit your needs
+    * Edit fed_prefix to point at the directory where you have copied the dataset.
+  * Edit the options in `benchmark` to suit your needs, or simply specify the desired options at the command line. In particular, make sure you specify a directory for the logs.
   * Run the benchmark by doing `./benchmark profile.sh`
   * If you get an error saying "Valid site-local-config not found at <some_path>/SITECONF/local/JobConfig/site-local-config.xml", create such directory and copy in it the site-local-config.xml file from config/
+  * If in doubt, you can inspect the logs to cross check that CMSSW did detect the GPU and ran over all the events.
