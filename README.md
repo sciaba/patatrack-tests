@@ -15,6 +15,7 @@ These instructions allow to download, install, configure and run Patatrack for b
   * Edit the value of dataset_prefix to match the value of OUTPUT_DIR.
   * Edit the value of fed_prefix to set the desired destination for the FED (the size of the output will be approximately 5 GB).
   * Run `cmsRun prepare_data.py` (it should take around 10 hours for the whole dataset)
+  * Note: the data preparation has been done already and the resulting dataset is stored in EOS under /eos/project/b/benchmark/www/hep-workloads/data/cms/patatrack/, so there is no need to execute these steps.
 ## Running Patatrack
 * Get the Patatrack benchmarking suite
   * Run `git clone https://github.com/cms-patatrack/patatrack-scripts`
