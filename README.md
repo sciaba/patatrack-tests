@@ -1,5 +1,8 @@
 # patatrack-tests
 These instructions allow to download, install, configure and run Patatrack (https://github.com/cms-patatrack) for benchmarking purposes. These are UNOFFICIAL and the author is NOT a Patatrack developer, so they are liable to stop working if changes in Patatrack happen and are not properly taken into account here.
+
+These instructions were developed for CMSSW_10_6_3_Patatrack using slc7_amd64_gcc820 as SCRAM_ARCH. The official documentation is at https://patatrack.web.cern.ch/patatrack/wiki/.
+
 ## Installation and setup
 * Use the script scripts/install.sh to install CMSSW and Patatrack on a local directory.
   * Edit the value of VO_CMS_SW_DIR to point to a directory with at least 40 GB of free space.
