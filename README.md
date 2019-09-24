@@ -33,3 +33,4 @@ These instructions were developed for CMSSW_10_6_3_Patatrack using slc7_amd64_gc
   * Run the benchmark by doing `./benchmark profile.sh`
   * If you get an error saying "Valid site-local-config not found at <some_path>/SITECONF/local/JobConfig/site-local-config.xml", create such directory and copy in it the site-local-config.xml file from config/
   * If in doubt, you can inspect the logs to cross check that CMSSW did detect the GPU and ran over all the events.
+  * You can play with `./scan profile.py` and `./plot_scan scan.csv` to run the benchmark with different numbers of jobs, threads and streams and plot the results.
