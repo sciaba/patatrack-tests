@@ -1,5 +1,8 @@
 # patatrack-tests
-These instructions allow to download, install, configure and run Patatrack for benchmarking purposes.
+These instructions allow to download, install, configure and run Patatrack (https://github.com/cms-patatrack) for benchmarking purposes. These are UNOFFICIAL and the author is NOT a Patatrack developer, so they are liable to stop working if changes in Patatrack happen and are not properly taken into account here.
+
+These instructions were developed for CMSSW_10_6_3_Patatrack using slc7_amd64_gcc820 as SCRAM_ARCH. The official documentation is at https://patatrack.web.cern.ch/patatrack/wiki/.
+
 ## Installation and setup
 * Use the script scripts/install.sh to install CMSSW and Patatrack on a local directory.
   * Edit the value of VO_CMS_SW_DIR to point to a directory with at least 40 GB of free space.
@@ -15,6 +18,7 @@ These instructions allow to download, install, configure and run Patatrack for b
   * Edit the value of dataset_prefix to match the value of OUTPUT_DIR.
   * Edit the value of fed_prefix to set the desired destination for the FED (the size of the output will be approximately 5 GB).
   * Run `cmsRun prepare_data.py` (it should take around 10 hours for the whole dataset)
+  * Note: the data preparation has been done already and the resulting dataset is stored in EOS under /eos/project/b/benchmark/www/hep-workloads/data/cms/patatrack/, so there is no need to execute these steps.
 ## Running Patatrack
 * Get the Patatrack benchmarking suite
   * Run `git clone https://github.com/cms-patatrack/patatrack-scripts`
@@ -24,6 +28,8 @@ These instructions allow to download, install, configure and run Patatrack for b
   * Patch `profile.py` with the patch file in config/ by doing
     * `patch -b profile.py profile.patch`
   * Copy the configuration `config/sourceFromPixelRaw_cff.py` locally
-  * Edit the options in `benchmark` to suit your needs
+    * Edit fed_prefix to point at the directory where you have copied the dataset.
+  * Edit the options in `benchmark` to suit your needs. In particular, make sure you specify a directory for the logs.
   * Run the benchmark by doing `./benchmark profile.sh`
   * If you get an error saying "Valid site-local-config not found at <some_path>/SITECONF/local/JobConfig/site-local-config.xml", create such directory and copy in it the site-local-config.xml file from config/
+  * If in doubt, you can inspect the logs to cross check that CMSSW did detect the GPU and ran over all the events.
