@@ -29,7 +29,7 @@ These instructions were developed for CMSSW_10_6_3_Patatrack using slc7_amd64_gc
     * `patch -b profile.py profile.patch`
   * Copy the configuration `config/sourceFromPixelRaw_cff.py` locally
     * Edit fed_prefix to point at the directory where you have copied the dataset.
-  * Edit the options in `benchmark` to suit your needs, or simply specify the desired options at the command line. In particular, make sure you specify a directory for the logs.
+  * Edit the options in `benchmark` to suit your needs. In particular, make sure you specify a directory for the logs.
   * Run the benchmark by doing `./benchmark profile.sh`
   * If you get an error saying "Valid site-local-config not found at <some_path>/SITECONF/local/JobConfig/site-local-config.xml", create such directory and copy in it the site-local-config.xml file from config/
   * If in doubt, you can inspect the logs to cross check that CMSSW did detect the GPU and ran over all the events.
