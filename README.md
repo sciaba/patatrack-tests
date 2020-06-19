@@ -1,7 +1,7 @@
 # patatrack-tests
 These instructions allow to download, install, configure and run Patatrack (https://github.com/cms-patatrack) for benchmarking purposes. These are UNOFFICIAL and the author is NOT a Patatrack developer, so they are liable to stop working if changes in Patatrack happen and are not properly taken into account here.
 
-These instructions have been tested with CMSSW_11_1_0_pre8_Patatrack using CentOS7. The official documentation is at https://patatrack.web.cern.ch/patatrack/wiki/. Be aware that they may break due to changes in both Patatrack and the official benchmarking suite. If you encounter problems, write to Andrea.Sciaba@cern.ch.
+These instructions have been tested with CMSSW_11_1_0_pre8_Patatrack using CentOS7. The official documentation is at https://patatrack.web.cern.ch/patatrack/wiki/.
 
 ## Prerequisites
 * Operating system: CentOS7
