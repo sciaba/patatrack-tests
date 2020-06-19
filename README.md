@@ -1,36 +1,49 @@
 # patatrack-tests
 These instructions allow to download, install, configure and run Patatrack (https://github.com/cms-patatrack) for benchmarking purposes. These are UNOFFICIAL and the author is NOT a Patatrack developer, so they are liable to stop working if changes in Patatrack happen and are not properly taken into account here.
 
-These instructions were developed for CMSSW_10_6_3_Patatrack using slc7_amd64_gcc820 as SCRAM_ARCH. The official documentation is at https://patatrack.web.cern.ch/patatrack/wiki/.
+These instructions have been tested with CMSSW_11_1_0_pre8_Patatrack using CentOS7. The official documentation is at https://patatrack.web.cern.ch/patatrack/wiki/. Be aware that they may break due to changes in both Patatrack and the official benchmarking suite. If you encounter problems, write to Andrea.Sciaba@cern.ch.
+
+## Prerequisites
+* Operating system: CentOS7
+* Hardware: an Nvidia GPU
+* CVMFS installed with the CMS area accessible
+* (nothing prevents from running inside a Docker container)
 
 ## Installation and setup
-* Use the script scripts/install.sh to install CMSSW and Patatrack on a local directory.
-  * Edit the value of VO_CMS_SW_DIR to point to a directory with at least 40 GB of free space.
-  * Run the script.
-* Use the script scripts/work.sh to prepare the work area for Patatrack and source the CMSSW environment.
-  * Edit the value of VO_CMS_SW_DIR to point to the same directory as before.
-  * (for CERN) make sure you have a Kerberos token and run kinit.
-  * Run `source work.sh`
-* Use the script input_data.sh to download the required open data to be used as input.
-  * Edit $OUTPUT_DIR to set the desired destination for the dataset (which consists of 20000 events, 32 files and 553.5 GB of data, see http://opendata.cern.ch/record/12301#).
-  * Run the script
-* Use cmsRun with the configuration config/prepare_data.py to extract the relevant FED from the input data.
-  * Edit the value of dataset_prefix to match the value of OUTPUT_DIR.
-  * Edit the value of fed_prefix to set the desired destination for the FED (the size of the output will be approximately 5 GB).
-  * Run `cmsRun prepare_data.py` (it should take around 10 hours for the whole dataset)
-  * Note: the data preparation has been done already and the resulting dataset is stored in EOS under /eos/project/b/benchmark/www/hep-workloads/data/cms/patatrack/, so there is no need to execute these steps.
-## Running Patatrack
-* Get the Patatrack benchmarking suite
-  * Run `git clone https://github.com/cms-patatrack/patatrack-scripts`
-  * Patch `worflow.sh` with the patch file in scripts/ by doing
-    * `patch -b workflow.sh workflow.patch`
-    * Generate the workflow by running `./workflow.sh`
-  * Patch `profile.py` with the patch file in config/ by doing
-    * `patch -b profile.py profile.patch`
-  * Copy the configuration `config/sourceFromPixelRaw_cff.py` locally
-    * Edit fed_prefix to point at the directory where you have copied the dataset.
-  * Edit the options in `benchmark` to suit your needs. In particular, make sure you specify a directory for the logs.
-  * Run the benchmark by doing `./benchmark profile.sh`
-  * If you get an error saying "Valid site-local-config not found at <some_path>/SITECONF/local/JobConfig/site-local-config.xml", create such directory and copy in it the site-local-config.xml file from config/
-  * If in doubt, you can inspect the logs to cross check that CMSSW did detect the GPU and ran over all the events.
+* Get the necessary input data:
+  * `wget https://hep-benchmarks.web.cern.ch/hep-benchmarks/hep-workloads/data/cms/patatrack/opendata.tar`
+  * Unpack it in a suitably large local directory (e.g. in `/data`)
+* If needed, install the following dependencies:
+  * `yum install -y which man file util-linux gcc wget tar freetype perl perl-Data-Dumper patch git; yum clean all`
+* Clone the required repositories, this one and the one with the official benchmarking suite:
+  * `git clone https://github.com/cms-patatrack/patatrack-scripts`
+  * `git clone https://github.com/sciaba/patatrack-tests`
+* Set up the environment
+  * `export CMSSW_RELEASE=CMSSW_11_1_0_pre8_Patatrack`
+  * `export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch`
+  * `source $VO_CMS_SW_DIR/cmsset_default.sh`
+  * `scram project CMSSW ${CMSSW_RELEASE}`
+  * `cd ${CMSSW_RELEASE}`
+  * `cmsenv`
+  * `cd ..`
+* Prepare the scripts to run the benchmark:
+  * `cp patatrack-tests/*/*.patch patatrack-tests/config/sourceFromPixelRaw_cff.py patatrack-scripts/`
+  * `cd patatrack-scripts/`
+  * `patch -b workflow.sh workflow.patch`
+  * `./workflow.sh`
+  * `patch -b profile.py profile.patch`
+  * Ensure that `fed_prefix` in `sourceFromPixelRaw_cff.py` corresponds to the path of the input data (e.g. `/data/store/opendata/cms`)
+* Run the benchmark
+  * edit the options in `benchmark` to suit your needs. In particular, make sure you specify a directory for the logs.
+  * `./benchmark profile.py`
   * You can play with `./scan profile.py` and `./plot_scan scan.csv` to run the benchmark with different numbers of jobs, threads and streams and plot the results.
+
+## Optional instructions
+* In case you need to create a new input dataset:
+  * Determine which dataset to use (e.g. http://opendata.cern.ch/record/12301# was used until now)
+  * Edit the script `scripts/input_data.sh` in such a way that it will get the desired dataset files and edit OUTPUT_DIR to set the desired destination for the dataset
+  * Run the script `scripts/input_data.sh`
+  * Use cmsRun with the configuration `config/prepare_data.py` to extract the relevant FED from the input data:
+  * Edit the value of `dataset_prefix` to match the value of OUTPUT_DIR.
+  * Edit the value of `fed_prefix` to set the desired destination for the FED.
+  * Run `cmsRun prepare_data.py` (it may take several hours for the whole dataset)
